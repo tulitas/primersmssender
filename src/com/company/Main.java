@@ -50,6 +50,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 //подключение к серверу
+
         FileInputStream fis;
         Properties property = new Properties();
 
@@ -64,8 +65,10 @@ public class Main extends Application {
 
             in = new ParallelScanner(new Scanner(socket.getInputStream()));
             out = new PrintStream(socket.getOutputStream());
+
             in.start();
             connection(socket, out, in);
+
 
         } catch (Exception e) {
 
@@ -74,6 +77,7 @@ public class Main extends Application {
         }
         launch(args);
     }
+
 
     static void connection(Socket socket, PrintStream out, ParallelScanner in) throws Exception {
 
@@ -87,11 +91,15 @@ public class Main extends Application {
 //        вводим пароль
 
         out.print("Action: login\r\nUsername: apiuser\r\nSecret: apipass\r\n\r\n");
-        String line;
-        while (!"-END-".equals(line = in.nextLine())) {
-            if (line.equals("Message: Authentication accepted")) {
-                System.out.println("Connected to nasa date base");
+
+        while (in.hasNext()) {
+            if (in.nextLine().equals("Asterisk Call Manager/1.1\n" +
+                    "Response: Success\n" +
+                    "Message: Authentication accepted")) {
+                System.out.println("hello");
             }
+
+
         }
 
 
@@ -109,7 +117,7 @@ public class Main extends Application {
     }
 
 
-    public static void readFromDevice() {
+    public static String readFromDevice() {
 
         while (in.hasNext()) {
             String line = in.nextLine();
@@ -118,6 +126,7 @@ public class Main extends Application {
 
         }
 
+        return null;
     }
 
     public static ParallelScanner getIn() {
@@ -138,7 +147,62 @@ public class Main extends Application {
 
     public void handleOptions(ActionEvent actionEvent) {
 
+        String message = "Отправлено: \n";
+
+        if (Time.isSelected()) {
+            message += "Time\n";
+//                textWindow.appendText(message);
+            out.print(sms.getTime());
+
+        }
+
+        if (L1.isSelected()) {
+            message += "L1\n";
+//                textWindow.appendText(message);
+            out.print(sms.getL1());
+
+        }
+        if (L2.isSelected()) {
+            message += "L2\n";
+//                textWindow.appendText(message);
+            out.print(sms.getL2());
+
+        }
+        if (Info.isSelected()) {
+            message += "Info\n";
+//                textWindow.appendText(message);
+            out.print(sms.getInfo());
+
+        }
+        if (Actv.isSelected()) {
+            message += "Actv\n";
+//                textWindow.appendText(message);
+            out.print(sms.getActv());
+
+        }
+        if (Dact.isSelected()) {
+            message += "Dact\n";
+//                textWindow.appendText(message);
+            out.print(sms.getDact());
+
+        }
+        if (S8Off.isSelected()) {
+            message += "S8Off\n";
+//                textWindow.appendText(message);
+            out.print(sms.getS8Off());
+
+        }
+        if (Status.isSelected()) {
+            message += "Status\n";
+
+            out.print(sms.getStatus());
+
+        }
+        textWindow.appendText(message + "\n\r");
+
+
 
     }
-
 }
+
+
