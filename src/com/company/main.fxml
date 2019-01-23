@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.company.Main">
+  <children>
+    <FlowPane prefHeight="506.0" prefWidth="512.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <children>
+        <FlowPane prefHeight="100.0" prefWidth="498.0">
+          <children>
+            <TextField fx:id="Phone" alignment="CENTER" prefWidth="200.0">
+              <FlowPane.margin>
+                <Insets left="20.0" top="20.0" fx:id="x1" />
+              </FlowPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#addPhone" text="add phone">
+              <FlowPane.margin>
+                <Insets right="20.0" top="20.0" />
+              </FlowPane.margin>
+            </Button>
+          </children>
+        </FlowPane>
+        <FlowPane prefHeight="150.0" prefWidth="484.0">
+          <children>
+            <CheckBox fx:id="Time" mnemonicParsing="false" text="Time" FlowPane.margin="$x1" />
+            <CheckBox fx:id="Status" mnemonicParsing="false" text="Status" FlowPane.margin="$x1" />
+            <CheckBox fx:id="Info" mnemonicParsing="false" text="Info" FlowPane.margin="$x1" />
+            <CheckBox fx:id="S8Off" mnemonicParsing="false" text="S8Off" FlowPane.margin="$x1" />
+            <CheckBox fx:id="Actv" mnemonicParsing="false" text="Actv" FlowPane.margin="$x1" />
+            <CheckBox fx:id="Dact" mnemonicParsing="false" text="Dact" FlowPane.margin="$x1" />
+            <CheckBox fx:id="L1" mnemonicParsing="false" text="L1" FlowPane.margin="$x1" />
+            <CheckBox fx:id="L2" mnemonicParsing="false" text="L2" FlowPane.margin="$x1" />
+            <FlowPane prefHeight="128.0" prefWidth="200.0">
+              <children>
+                <Button alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOptions" text="send">
+                  <FlowPane.margin>
+                    <Insets left="150.0" top="50.0" />
+                  </FlowPane.margin>
+                </Button>
+
+              </children>
+            </FlowPane>
+          </children>
+        </FlowPane>
+        <FlowPane prefHeight="200.0" prefWidth="200.0">
+          <children>
+            <TextArea fx:id="textWindow" prefWidth="464.0" wrapText="true">
+              <FlowPane.margin>
+                <Insets bottom="20.0" left="20.0" />
+              </FlowPane.margin>
+            </TextArea>
+          </children>
+        </FlowPane>
+      </children>
+    </FlowPane>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
