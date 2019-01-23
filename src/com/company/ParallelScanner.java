@@ -4,9 +4,14 @@ import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class ParallelScanner extends Thread {
+public class ParallelScanner extends Thread implements AutoCloseable{
     private final Scanner scanner;
     private final BlockingQueue<String> receivingQueue = new LinkedBlockingQueue<>();
+    @Override
+    public void close() {
+        interrupt();
+        scanner.close();
+    }
 
     public ParallelScanner(Scanner scanner) {
         this.scanner = scanner;
