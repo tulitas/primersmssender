@@ -1,12 +1,16 @@
 package com.company;
 
+
+
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class ParallelScanner extends Thread implements AutoCloseable{
+public class ParallelScanner extends Thread implements AutoCloseable {
     private final Scanner scanner;
     private final BlockingQueue<String> receivingQueue = new LinkedBlockingQueue<>();
+
+
     @Override
     public void close() {
         interrupt();
@@ -37,6 +41,7 @@ public class ParallelScanner extends Thread implements AutoCloseable{
             String line = scanner.nextLine();
             System.out.println(line);
             receivingQueue.add(line);
+
         }
 
 

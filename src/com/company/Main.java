@@ -10,8 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Properties;
@@ -51,19 +51,19 @@ public class Main extends Application {
     public static void main(String[] args) {
 //подключение к серверу
 
-        FileInputStream fis;
-        Properties property = new Properties();
+
+      final   Properties properties = new Properties();
 
 
-        try {
-            fis = new FileInputStream("src/properties/config.properties");
-            property.load(fis);
-            String host = property.getProperty("db.host");
-            String port = property.getProperty("db.port");
-            Socket socket = new Socket(host, Integer.parseInt(port));
+        try (InputStream is = Main.class.getResourceAsStream("config.properties")){
+             properties.load(is);
+
+             String host = properties.getProperty("db.host");
+             String port = properties.getProperty("db.port");
+             Socket socket = new Socket(host, Integer.parseInt(port));
 
 
-            in = new ParallelScanner(new Scanner(socket.getInputStream()));
+             in = new ParallelScanner(new Scanner(socket.getInputStream()));
             out = new PrintStream(socket.getOutputStream());
 
             in.start();
@@ -117,16 +117,19 @@ public class Main extends Application {
     }
 
 
-    public static String readFromDevice() {
+    private static void readFromDevice() {
 
         while (in.hasNext()) {
             String line = in.nextLine();
             System.out.println(line);
 
+            TextArea textArea = new TextArea();
+            textArea.appendText(line);
 
         }
 
-        return null;
+
+
     }
 
     public static ParallelScanner getIn() {
