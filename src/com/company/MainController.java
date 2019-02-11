@@ -102,13 +102,13 @@ public class MainController {
 
 
     @FXML
-    private void readFromDevice()  {
+    private void readFromDevice() {
 
         while (in.hasNext()) {
             String line = in.nextLine();
 
             System.out.println(line);
-
+            textWindow.appendText(line + "\r\n");
         }
 
 
