@@ -137,6 +137,9 @@ public class MainController {
             if (line.equals("Status: 1")) {
                 textWindow.appendText("Otpravleno" + "\n");
             }
+            if (line.equals("Status: 0")) {
+                textWindow.appendText("Ошибка отправления, возможно, указан неверный номер");
+            }
             if (line.equals("Sender: " + sms.getPhone())) {
                 textWindow.appendText("nastrojki polucheni");
             }
