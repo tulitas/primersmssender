@@ -30,6 +30,7 @@ public class MainController {
     public CheckBox Dact;
     public TextArea textWindow;
     private Object ParsePosition;
+    private Object ActionEvent;
 
     public MainController() throws IOException {
     }
@@ -72,19 +73,17 @@ public class MainController {
     }
 
     private static void enterPassword(Socket socket, PrintStream out, ParallelScanner in) throws IOException {
-//        вводим пароль
-
-        out.print("Action: login\r\nUsername: apiuser\r\nSecret: apipass\r\n\r\n");
-
-        while (in.hasNext()) {
-            if (in.nextLine().equals("Asterisk Call Manager/1.1\n" +
-                    "Response: Success\n" +
-                    "Message: Authentication accepted")) {
-                System.out.println("hello");
-            }
-
-
+//        вводим пароль, вводные данные идут из файла config.properties.login
+        final Properties properties = new Properties();
+        try
+                (InputStream is = Main.class.getResourceAsStream("config.properties.login")) {
+            properties.load(is);
+            String login = properties.getProperty("cp.action");
+            String username = properties.getProperty("cp.username");
+            String secret = properties.getProperty("cp.secret");
+            out.print("Action: " + login + "\r\nUsername: " + username + "\r\nSecret: " + secret + "\r\n\r\n");
         }
+
 
 
     }
@@ -107,8 +106,9 @@ public class MainController {
         while (in.hasNext()) {
             String line = in.nextLine();
 
-            System.out.println(line);
-            textWindow.appendText(line + "\r\n");
+//            System.out.println(line);
+
+            textWindow.appendText(line +"\n");
         }
 
 
@@ -126,7 +126,7 @@ public class MainController {
 
     public void handleOptions(ActionEvent actionEvent) {
 
-        String message = "Отправлено: \n";
+        String message = "Выбрано: \n";
 
         if (Time.isSelected()) {
             message += "Time\n";
