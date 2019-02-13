@@ -1,11 +1,15 @@
 package com.company;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.Socket;
@@ -31,6 +35,8 @@ public class MainController {
     public TextArea textWindow;
     private Object ParsePosition;
     private Object ActionEvent;
+    public String phone;
+    public String line;
 
     public MainController() throws IOException {
     }
@@ -53,6 +59,16 @@ public class MainController {
 
             in.start();
             connection(socket, out, in);
+//метод обновляет входящие потоки
+            Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    readFromDevice();
+                }
+            }));
+            fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+            fiveSecondsWonder.play();
 
 
         } catch (Exception e) {
@@ -85,15 +101,15 @@ public class MainController {
         }
 
 
-
     }
 
 
     public void addPhone(ActionEvent actionEvent) {
 
 //вводим номер и отправляем в SMS
-        String phone = Phone.getText();
+        phone = Phone.getText();
         sms.setPhone(phone);
+
         System.out.println(sms.getPhone());
         textWindow.appendText("Добавлен номер: " + sms.getPhone() + "\n\r");
 
@@ -104,11 +120,27 @@ public class MainController {
     private void readFromDevice() {
 
         while (in.hasNext()) {
-            String line = in.nextLine();
+            line = in.nextLine();
 
-//            System.out.println(line);
 
-            textWindow.appendText(line +"\n");
+            if (line.equals("Message: Authentication accepted")) {
+                textWindow.appendText("Успешное подключение!!!" + "\n");
+                return;
+            }
+            if (line.equals("Message: Authentication failed")) {
+                textWindow.appendText("Ошибка подключения. \nПроверьте логин и пароль в файле config.properties.login");
+                return;
+            }
+            if (line.equals("Message: Permission denied")) {
+                textWindow.appendText("Ошибка подключения. \nПроверьте функцию action в файле config.properties.login");
+            }
+            if (line.equals("Status: 1")) {
+                textWindow.appendText("Otpravleno" + "\n");
+            }
+            if (line.equals("Sender: " + sms.getPhone())) {
+                textWindow.appendText("nastrojki polucheni");
+            }
+
         }
 
 
