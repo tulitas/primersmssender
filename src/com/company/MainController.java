@@ -128,25 +128,25 @@ public class MainController {
                 return;
             }
             if (line.equals("Message: Authentication failed")) {
-                textWindow.appendText("Ошибка подключения. \nПроверьте логин и пароль в файле config.properties.login");
+                textWindow.appendText("Ошибка подключения. \nПроверьте логин и пароль в файле config.properties.login\n");
                 return;
             }
             if (line.equals("Message: Permission denied")) {
-                textWindow.appendText("Ошибка подключения. \nПроверьте функцию action в файле config.properties.login");
+                textWindow.appendText("Ошибка подключения. \nПроверьте функцию action в файле config.properties.login\n");
             }
             if (line.equals("Status: 1")) {
-                textWindow.appendText("Otpravleno" + "\n");
+                textWindow.appendText("Отправлено" + "\n");
             }
             if (line.equals("Status: 0")) {
-                textWindow.appendText("Ошибка отправления, возможно, указан неверный номер");
+                textWindow.appendText("Ошибка отправления, возможно, указан неверный номер\n");
             }
             if (line.equals("Sender: " + sms.getPhone())) {
-                textWindow.appendText("ustrojstvo s nomerom " + sms.getPhone() + " polu4ilo nastrojki\n\r");
+                textWindow.appendText("Устройство с номером " + sms.getPhone() + " получило настройки\n\r");
 
             }
             if (line.startsWith("Content:")) {
 
-                textWindow.appendText(line.replace("Content:","Otvet: "));
+                textWindow.appendText(line.replace("Content:", "Ответ: \n") + "\r\n");
             }
 
         }
@@ -172,56 +172,56 @@ public class MainController {
             message += "Time\n";
 //            textWindow.appendText(message);
             out.print(sms.getTime());
+        }
 
-
-            if (L1.isSelected()) {
-                message += "L1\n";
+        if (L1.isSelected()) {
+            message += "L1\n";
 //                textWindow.appendText(message);
-                out.print(sms.getL1());
-
-            }
-            if (L2.isSelected()) {
-                message += "L2\n";
-//                textWindow.appendText(message);
-                out.print(sms.getL2());
-
-            }
-            if (Info.isSelected()) {
-                message += "Info\n";
-//                textWindow.appendText(message);
-                out.print(sms.getInfo());
-
-            }
-            if (Actv.isSelected()) {
-                message += "Actv\n";
-//                textWindow.appendText(message);
-                out.print(sms.getActv());
-
-            }
-            if (Dact.isSelected()) {
-                message += "Dact\n";
-//                textWindow.appendText(message);
-                out.print(sms.getDact());
-
-            }
-            if (S8Off.isSelected()) {
-                message += "S8Off\n";
-//                textWindow.appendText(message);
-                out.print(sms.getS8Off());
-
-            }
-            if (Status.isSelected()) {
-                message += "Status\n";
-
-                out.print(sms.getStatus());
-
-            }
-            textWindow.appendText(message + "\n\r");
-
+            out.print(sms.getL1());
 
         }
+        if (L2.isSelected()) {
+            message += "L2\n";
+//                textWindow.appendText(message);
+            out.print(sms.getL2());
+
+        }
+        if (Info.isSelected()) {
+            message += "Info\n";
+//                textWindow.appendText(message);
+            out.print(sms.getInfo());
+
+        }
+        if (Actv.isSelected()) {
+            message += "Actv\n";
+//                textWindow.appendText(message);
+            out.print(sms.getActv());
+
+        }
+        if (Dact.isSelected()) {
+            message += "Dact\n";
+//                textWindow.appendText(message);
+            out.print(sms.getDact());
+
+        }
+        if (S8Off.isSelected()) {
+            message += "S8Off\n";
+//                textWindow.appendText(message);
+            out.print(sms.getS8Off());
+
+        }
+        if (Status.isSelected()) {
+            message += "Status\n";
+
+            out.print(sms.getStatus());
+
+        }
+        textWindow.appendText(message + "\n\r");
+
+
     }
 }
+
 
 
 
