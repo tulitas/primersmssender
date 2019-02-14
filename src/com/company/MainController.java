@@ -141,7 +141,12 @@ public class MainController {
                 textWindow.appendText("Ошибка отправления, возможно, указан неверный номер");
             }
             if (line.equals("Sender: " + sms.getPhone())) {
-                textWindow.appendText("nastrojki polucheni");
+                textWindow.appendText("ustrojstvo s nomerom " + sms.getPhone() + " polu4ilo nastrojki\n\r");
+
+            }
+            if (line.startsWith("Content:")) {
+
+                textWindow.appendText(line.replace("Content:","Otvet: "));
             }
 
         }
@@ -165,56 +170,56 @@ public class MainController {
 
         if (Time.isSelected()) {
             message += "Time\n";
-//                textWindow.appendText(message);
+//            textWindow.appendText(message);
             out.print(sms.getTime());
 
-        }
 
-        if (L1.isSelected()) {
-            message += "L1\n";
+            if (L1.isSelected()) {
+                message += "L1\n";
 //                textWindow.appendText(message);
-            out.print(sms.getL1());
+                out.print(sms.getL1());
 
-        }
-        if (L2.isSelected()) {
-            message += "L2\n";
+            }
+            if (L2.isSelected()) {
+                message += "L2\n";
 //                textWindow.appendText(message);
-            out.print(sms.getL2());
+                out.print(sms.getL2());
 
-        }
-        if (Info.isSelected()) {
-            message += "Info\n";
+            }
+            if (Info.isSelected()) {
+                message += "Info\n";
 //                textWindow.appendText(message);
-            out.print(sms.getInfo());
+                out.print(sms.getInfo());
 
-        }
-        if (Actv.isSelected()) {
-            message += "Actv\n";
+            }
+            if (Actv.isSelected()) {
+                message += "Actv\n";
 //                textWindow.appendText(message);
-            out.print(sms.getActv());
+                out.print(sms.getActv());
 
-        }
-        if (Dact.isSelected()) {
-            message += "Dact\n";
+            }
+            if (Dact.isSelected()) {
+                message += "Dact\n";
 //                textWindow.appendText(message);
-            out.print(sms.getDact());
+                out.print(sms.getDact());
 
-        }
-        if (S8Off.isSelected()) {
-            message += "S8Off\n";
+            }
+            if (S8Off.isSelected()) {
+                message += "S8Off\n";
 //                textWindow.appendText(message);
-            out.print(sms.getS8Off());
+                out.print(sms.getS8Off());
+
+            }
+            if (Status.isSelected()) {
+                message += "Status\n";
+
+                out.print(sms.getStatus());
+
+            }
+            textWindow.appendText(message + "\n\r");
+
 
         }
-        if (Status.isSelected()) {
-            message += "Status\n";
-
-            out.print(sms.getStatus());
-
-        }
-        textWindow.appendText(message + "\n\r");
-
-
     }
 }
 
