@@ -6,14 +6,21 @@ import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
 import java.net.Socket;
-import java.text.ParsePosition;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -118,7 +125,7 @@ public class MainController {
 
     @FXML
     private void readFromDevice() {
-
+// информационные сообщения
         while (in.hasNext()) {
             line = in.nextLine();
 
@@ -165,7 +172,7 @@ public class MainController {
 
 
     public void handleOptions(ActionEvent actionEvent) {
-
+// выбор сообщений
         String message = "Выбрано: \n";
 
         if (Time.isSelected()) {
@@ -220,9 +227,38 @@ public class MainController {
 
 
     }
+
+    public void Help(javafx.event.ActionEvent actionEvent) throws IOException {
+//Всплывающее окно, с инструкцией из файла
+        String text = new String(Files.readAllBytes(Paths.get("src/com/company/help.txt")));
+        System.out.println(text);
+
+        Stage window = new Stage();
+        window.setMinWidth(350);
+        window.setMinHeight(400);
+
+        Label label = new Label();
+        label.setFont(Font.font(20));
+        VBox layout = new VBox(20);
+
+        layout.getChildren().addAll(label);
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        label.setText(text);
+        window.show();
+//        try {
+//            FileInputStream fstream = new FileInputStream("src/com/company/help.txt");
+//            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+//            String strLine;
+//            while ((strLine = br.readLine()) != null) {
+//                System.out.println(strLine);
+//
+//            }
+
+
+
+    }
+
 }
-
-
-
 
 
