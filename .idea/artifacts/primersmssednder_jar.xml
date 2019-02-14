@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="primersmssednder:jar">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="primersmssednder.jar">
+      <element id="module-output" name="primersmssednder" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/it/unimi/dsi/fastutil/7.0.13/fastutil-7.0.13.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
