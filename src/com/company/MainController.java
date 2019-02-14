@@ -146,7 +146,7 @@ public class MainController {
             }
             if (line.startsWith("Content:")) {
 
-                textWindow.appendText(line.replace("Content:", "Ответ: \n") + "\r\n");
+                textWindow.appendText(line.replace("Content:", "Ответ:") + "\r\n");
             }
 
         }
