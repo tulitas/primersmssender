@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.company.MainController">
+<GridPane alignment="CENTER" hgap="10.0" prefWidth="763.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.company.MainController">
   <children>
     <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
       <columnConstraints>
@@ -49,6 +49,9 @@
                   </items>
                 </Menu>
               </menus>
+              <FlowPane.margin>
+                <Insets top="20.0" />
+              </FlowPane.margin>
             </MenuBar>
           </children>
         </FlowPane>

@@ -231,7 +231,7 @@ public class MainController {
     public void Help(javafx.event.ActionEvent actionEvent) throws IOException {
 //Всплывающее окно, с инструкцией из файла
         String text = new String(Files.readAllBytes(Paths.get("src/com/company/help.txt")));
-        System.out.println(text);
+
 
         Stage window = new Stage();
         window.setMinWidth(350);
@@ -246,14 +246,6 @@ public class MainController {
         window.setScene(scene);
         label.setText(text);
         window.show();
-//        try {
-//            FileInputStream fstream = new FileInputStream("src/com/company/help.txt");
-//            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-//            String strLine;
-//            while ((strLine = br.readLine()) != null) {
-//                System.out.println(strLine);
-//
-//            }
 
 
 
