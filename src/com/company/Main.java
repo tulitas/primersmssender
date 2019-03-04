@@ -21,7 +21,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("SmsSender");
         primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(450);
+        primaryStage.setMinWidth(600);
         primaryStage.setScene(new Scene(root, 500, 500));
 
 

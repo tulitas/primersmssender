@@ -42,7 +42,7 @@ public class ParallelScanner extends Thread implements AutoCloseable {
     public void run() {
         while (!interrupted()) {
            String line = scanner.nextLine();
-            System.out.println(line);
+            System.out.format(line + "\n");
 
             receivingQueue.add(line);
 

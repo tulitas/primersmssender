@@ -1,10 +1,7 @@
 package com.company;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
-import javafx.scene.text.TextFlow;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,9 +18,15 @@ public class Sms {
     private SimpleStringProperty Actv = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 actv\" "+ formatDate.format(date)+"\r\n\r\n");
     private SimpleStringProperty Dact = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 dact\" "+ formatDate.format(date)+"\r\n\r\n");
     private SimpleStringProperty S8Off = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 s8off\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty S4Off = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 s4off\" "+ formatDate.format(date)+"\r\n\r\n");
     private SimpleStringProperty Info = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 info\" "+ formatDate.format(date)+"\r\n\r\n");
     private SimpleStringProperty L1 = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 out L,1,\" "+ formatDate.format(date)+"\r\n\r\n");
     private SimpleStringProperty L2 = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 out L,2,\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty RFmodeA = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 rfmode a,\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty RFmodeB = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 rfmode b,\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty razvchas = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,6,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty razvsutki = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,240,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
+    private SimpleStringProperty razv2sutki = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,480,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
 
     public SimpleDateFormat getFormatForDate() {
         return formatForDate;
@@ -49,11 +52,88 @@ public class Sms {
         Actv = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 actv\" "+ formatDate.format(date)+"\r\n\r\n");
         Dact = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 dact\" "+ formatDate.format(date)+"\r\n\r\n");
         S8Off = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 s8off\" "+ formatDate.format(date)+"\r\n\r\n");
+        S4Off = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 s4off\" "+ formatDate.format(date)+"\r\n\r\n");
         Info = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 info\" "+ formatDate.format(date)+"\r\n\r\n");
         L1 = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 out L,1,\" "+ formatDate.format(date)+"\r\n\r\n");
         L2 = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 out L,2,\" "+ formatDate.format(date)+"\r\n\r\n");
+        RFmodeA = new  SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 rfmode a,\" "+ formatDate.format(date)+"\r\n\r\n");
+        RFmodeB = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 rfmode b,\" "+ formatDate.format(date)+"\r\n\r\n");
+        razvchas = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,6,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
+        razvsutki = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,240,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
+        razv2sutki = new SimpleStringProperty("Action: smscommand\r\ncommand: gsm send sms 2 " + getPhone() + " \"12345 offline s,1,480,sms,\" "+ formatDate.format(date)+"\r\n\r\n");
 
+    }
 
+    public String getRazv2sutki() {
+        return razv2sutki.get();
+    }
+
+    public SimpleStringProperty razv2sutkiProperty() {
+        return razv2sutki;
+    }
+
+    public void setRazv2sutki(String razv2sutki) {
+        this.razv2sutki.set(razv2sutki);
+    }
+
+    public String getRazvsutki() {
+        return razvsutki.get();
+    }
+
+    public SimpleStringProperty razvsutkiProperty() {
+        return razvsutki;
+    }
+
+    public void setRazvsutki(String razvsutki) {
+        this.razvsutki.set(razvsutki);
+    }
+
+    public String getRazvchas() {
+        return razvchas.get();
+    }
+
+    public SimpleStringProperty razvchasProperty() {
+        return razvchas;
+    }
+
+    public void setRazvchas(String razvchas) {
+        this.razvchas.set(razvchas);
+    }
+
+    public String getS4Off() {
+        return S4Off.get();
+    }
+
+    public SimpleStringProperty s4OffProperty() {
+        return S4Off;
+    }
+
+    public void setS4Off(String s4Off) {
+        this.S4Off.set(s4Off);
+    }
+
+    public String getRFmodeA() {
+        return RFmodeA.get();
+    }
+
+    public SimpleStringProperty RFmodeAProperty() {
+        return RFmodeA;
+    }
+
+    public void setRFmodeA(String RFmodeA) {
+        this.RFmodeA.set(RFmodeA);
+    }
+
+    public String getRFmodeB() {
+        return RFmodeB.get();
+    }
+
+    public SimpleStringProperty RFmodeBProperty() {
+        return RFmodeB;
+    }
+
+    public void setRFmodeB(String RFmodeB) {
+        this.RFmodeB.set(RFmodeB);
     }
 
     public Date getDate() {
@@ -169,4 +249,7 @@ public class Sms {
     public void setFormatDate(SimpleDateFormat formatDate) {
         this.formatDate = formatDate;
     }
+
+
+
 }
