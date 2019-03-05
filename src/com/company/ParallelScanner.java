@@ -4,6 +4,7 @@ package com.company;
 import javafx.scene.control.TextArea;
 
 import java.awt.event.ActionEvent;
+import java.net.URLDecoder;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -41,8 +42,9 @@ public class ParallelScanner extends Thread implements AutoCloseable {
     @Override
     public void run() {
         while (!interrupted()) {
-           String line = scanner.nextLine();
-            System.out.format(line + "\n");
+           String line  = scanner.nextLine();
+
+            System.out.println(line);
 
             receivingQueue.add(line);
 

@@ -158,7 +158,7 @@ public class MainController {
             }
             if (line.startsWith("Content:")) {
 
-                textWindow.appendText(line.replace("Content:" + "[%2F]", "Ответ:" + "/") + "\r\n");
+                textWindow.appendText(line);
             }
 
         }
