@@ -21,8 +21,11 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainController {
 
@@ -51,7 +54,7 @@ public class MainController {
     }
 
     public void initialize() {
-
+        Sql();
         final Properties properties = new Properties();
 
 
@@ -158,7 +161,7 @@ public class MainController {
             }
             if (line.startsWith("Content:")) {
 
-                textWindow.appendText(line);
+                textWindow.appendText(line + "\n");
             }
 
         }
@@ -232,10 +235,10 @@ public class MainController {
         VBox layout = new VBox(10);
 
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(button, Status, Info, Time, L1, L2, RFmodeA,RFmodeB, S4Off, razvchas, razvsutki, razv2sutki);
+        layout.getChildren().addAll(button, Status, Info, Time, L1, L2, RFmodeA, RFmodeB, S4Off, razvchas, razvsutki, razv2sutki);
 
 
-        Scene scene = new Scene(layout,  300, 500);
+        Scene scene = new Scene(layout, 300, 500);
         window.setScene(scene);
         window.show();
 
@@ -392,7 +395,8 @@ public class MainController {
 //                textWindow.appendText(message);
             out.print(sms.getS8Off());
 
-        }if (S4Off.isSelected()) {
+        }
+        if (S4Off.isSelected()) {
             message += "S4Off\n";
 //                textWindow.appendText(message);
             out.print(sms.getS4Off());
@@ -407,7 +411,57 @@ public class MainController {
         textWindow.appendText(message + "\n\r");
 
     }
+
+    private void Sql() {
+
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String url = "jdbc:mysql://192.168.1.121/smscenter";
+        String user = "SergejK";
+        String password = "Biologija12";
+
+
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url, user, password);
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM inbox where sender = "+sms.getPhone());
+
+            while (rs.next()) {//get first result
+
+                textWindow.appendText(rs.getString("content")+"\n");//coloumn 1
+            }
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
+    }
 }
+
+
 
 
 
