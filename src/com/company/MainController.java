@@ -408,7 +408,7 @@ public class MainController {
             out.print(sms.getStatus());
 
         }
-        textWindow.appendText(message + "\n\r");
+//        textWindow.appendText(message + "\n\r");
 
     }
 
@@ -428,7 +428,7 @@ public class MainController {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM inbox where sender = "+sms.getPhone());
+            rs = st.executeQuery("SELECT content from inbox where sender = ");
 
             while (rs.next()) {//get first result
 
