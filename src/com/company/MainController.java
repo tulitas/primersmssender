@@ -54,7 +54,7 @@ public class MainController {
     }
 
     public void initialize() {
-        Sql();
+
         final Properties properties = new Properties();
 
 
@@ -88,7 +88,7 @@ public class MainController {
             e.printStackTrace();
 
         }
-
+        Sql();
     }
 
 
@@ -215,7 +215,7 @@ public class MainController {
         window.setMinWidth(200);
         window.setMinHeight(200);
         window.setTitle("GM1");
-        window.initModality(Modality.APPLICATION_MODAL);
+//        window.initModality(Modality.APPLICATION_MODAL);
         Button button = new Button("Send");
         button.setOnAction(event -> Send());
 
@@ -321,7 +321,7 @@ public class MainController {
         window.setMinWidth(200);
         window.setMinHeight(200);
         window.setTitle("GM2");
-        window.initModality(Modality.APPLICATION_MODAL);
+//        window.initModality(Modality.APPLICATION_MODAL);
         Button button = new Button("Send");
         button.setOnAction(event -> Send2());
 
@@ -340,7 +340,7 @@ public class MainController {
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(button, Status, Info, Time, Actv, Dact, RFmodeA, RFmodeB, S8Off, S4Off, razvchas, razvsutki, razv2sutki);
+        layout.getChildren().addAll(button, Status, Info, Time, Actv, Dact, S8Off, S4Off, razvchas, razvsutki, razv2sutki);
 
         Scene scene = new Scene(layout, 300, 500);
         window.setScene(scene);
@@ -423,17 +423,23 @@ public class MainController {
         String password = "Biologija12";
 
 
-
+String phone = sms.getPhone();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery("SELECT content from inbox where sender = ");
 
-            while (rs.next()) {//get first result
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT from inbox where sender=?");
+            preparedStatement.setString(1, phone);
+            ResultSet resultSet = preparedStatement.executeQuery();
+//            rs = st.executeQuery("SELECT content from inbox where inbox_id=400");
+            System.out.println(resultSet);
 
-                textWindow.appendText(rs.getString("content")+"\n");//coloumn 1
-            }
+//            while (resultSet.next()) {//get first result
+//                String id = resultSet.getString("ID");
+//                System.out.println(id);
+////                textWindow.appendText(rs.getString("content")+"\n");//coloumn 1
+//            }
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
