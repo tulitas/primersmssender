@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefWidth="763.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.company.MainController">
+<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="763.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.company.MainController">
   <children>
     <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
       <columnConstraints>
@@ -19,24 +19,24 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <FlowPane prefHeight="506.0" prefWidth="512.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="506.0" prefWidth="512.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <FlowPane prefHeight="100.0" prefWidth="498.0">
         <MenuBar id="Help" fx:id="info">
           <FlowPane.margin>
-            <Insets top="20.0" fx:id="x2"/>
+            <Insets top="20.0" fx:id="x2" />
           </FlowPane.margin>
           <Menu mnemonicParsing="false" onAction="#Help" text="Помощь">
-            <MenuItem mnemonicParsing="false" text="Инструкция"/>
+            <MenuItem mnemonicParsing="false" text="Инструкция" />
           </Menu>
         </MenuBar>
         <TextField fx:id="Phone" alignment="CENTER" prefWidth="200.0">
           <FlowPane.margin>
-            <Insets left="20.0" top="20.0" fx:id="x1"/>
+            <Insets left="20.0" top="20.0" fx:id="x1" />
           </FlowPane.margin>
         </TextField>
         <Button mnemonicParsing="false" onAction="#addPhone" text="Добавить телефон">
           <FlowPane.margin>
-            <Insets right="20.0" top="20.0"/>
+            <Insets right="20.0" top="20.0" />
           </FlowPane.margin>
         </Button>
       </FlowPane>
@@ -45,19 +45,19 @@
           <HBox prefHeight="100.0" prefWidth="200.0">
             <Button mnemonicParsing="false" onAction="#listView" text="GM1">
               <HBox.margin>
-                <Insets left="20.0"/>
+                <Insets left="20.0" />
               </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="GM2" onAction="#listView2"/>
+            <Button mnemonicParsing="false" onAction="#listView2" text="GM2" />
+            <Button mnemonicParsing="false" onAction="#find" text="Find" />
           </HBox>
         </FlowPane>
       </FlowPane>
       <FlowPane prefHeight="200.0" prefWidth="200.0">
         <children>
-          <TextArea fx:id="textWindow" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                    minHeight="-1.0" minWidth="-1.0" prefWidth="464.0" wrapText="true">
+          <TextArea fx:id="textWindow" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-1.0" minWidth="-1.0" prefWidth="650.0" wrapText="true">
             <FlowPane.margin>
-              <Insets bottom="20.0" left="20.0"/>
+              <Insets bottom="20.0" left="20.0" />
             </FlowPane.margin>
           </TextArea>
         </children>

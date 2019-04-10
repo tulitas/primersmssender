@@ -1,5 +1,6 @@
 package com.company;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
@@ -49,6 +50,8 @@ public class MainController {
     private CheckBox razvsutki;
     private CheckBox razv2sutki;
     public TextArea textWindow;
+    private String query;
+    private String content;
 
     public MainController() throws IOException {
     }
@@ -88,7 +91,7 @@ public class MainController {
             e.printStackTrace();
 
         }
-        Sql();
+
     }
 
 
@@ -124,7 +127,7 @@ public class MainController {
 
         System.out.println(sms.getPhone());
         textWindow.appendText("Добавлен номер: " + sms.getPhone() + "\n\r");
-
+        Sql();
     }
 
 
@@ -416,31 +419,31 @@ public class MainController {
 
         Connection con = null;
         Statement st = null;
-        ResultSet rs = null;
+//        ResultSet rs = null;
 
         String url = "jdbc:mysql://192.168.1.121/smscenter";
         String user = "SergejK";
         String password = "Biologija12";
 
 
-String phone = sms.getPhone();
+//String phone = sms.getPhone();
+
+        query = "select * from inbox where sender = " + sms.getPhone();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                content = rs.getString("content");
+                textWindow.appendText(content + "\r\n");
+            }
+//            rs = st.executeQuery("select * from inbox where sender = " + sms.getPhone())  ;
 
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT from inbox where sender=?");
-            preparedStatement.setString(1, phone);
-            ResultSet resultSet = preparedStatement.executeQuery();
-//            rs = st.executeQuery("SELECT content from inbox where inbox_id=400");
-            System.out.println(resultSet);
-
-//            while (resultSet.next()) {//get first result
-//                String id = resultSet.getString("ID");
-//                System.out.println(id);
-////                textWindow.appendText(rs.getString("content")+"\n");//coloumn 1
+//            while (rs.next()) {
+//                cc = rs.getString("content");
+//                System.out.println(cc);
 //            }
-
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -449,9 +452,9 @@ String phone = sms.getPhone();
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
+//                if (query != null) {
+//                    query.close();
+//                }
                 if (st != null) {
                     st.close();
                 }
@@ -464,6 +467,26 @@ String phone = sms.getPhone();
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
         }
+
+    }
+
+    public void find(ActionEvent actionEvent) {
+        Sql();
+        window = new Stage();
+        window.setMinWidth(400);
+        window.setMinHeight(200);
+        window.setTitle("Sms");
+
+        TextArea textArea = new TextArea();
+
+
+        Scene scene = new Scene(textArea);
+        window.setScene(scene);
+
+
+        textArea.appendText(content +"\n");
+
+        window.show();
     }
 }
 

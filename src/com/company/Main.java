@@ -22,7 +22,7 @@ public class Main extends Application {
         primaryStage.setTitle("SmsSender");
         primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(600);
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root, 700, 500));
 
 
         primaryStage.show();
