@@ -50,8 +50,9 @@ public class MainController {
     private CheckBox razvsutki;
     private CheckBox razv2sutki;
     public TextArea textWindow;
-    private String query;
+
     private String content;
+    private String time;
 
     public MainController() throws IOException {
     }
@@ -411,7 +412,7 @@ public class MainController {
             out.print(sms.getStatus());
 
         }
-//        textWindow.appendText(message + "\n\r");
+        textWindow.appendText(message + "\n\r");
 
     }
 
@@ -428,7 +429,8 @@ public class MainController {
 
 //String phone = sms.getPhone();
 
-        query = "select * from inbox where sender = " + sms.getPhone();
+        String query = "select * from inbox  where sender = " + sms.getPhone();
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
@@ -436,14 +438,10 @@ public class MainController {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 content = rs.getString("content");
-                textWindow.appendText(content + "\r\n");
+                time = rs.getString("time");
+                textWindow.appendText(time + " --- " + content +  "\r\n");
             }
-//            rs = st.executeQuery("select * from inbox where sender = " + sms.getPhone())  ;
 
-//            while (rs.next()) {
-//                cc = rs.getString("content");
-//                System.out.println(cc);
-//            }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -484,7 +482,7 @@ public class MainController {
         window.setScene(scene);
 
 
-        textArea.appendText(content +"\n");
+        textArea.appendText(content + "\n");
 
         window.show();
     }
