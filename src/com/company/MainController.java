@@ -51,9 +51,6 @@ public class MainController {
     private CheckBox razv2sutki;
     public TextArea textWindow;
 
-    private String content;
-    private String time;
-
     public MainController() throws IOException {
     }
 
@@ -127,7 +124,7 @@ public class MainController {
         sms.setPhone(phone);
 
         System.out.println(sms.getPhone());
-        textWindow.appendText("Добавлен номер: " + sms.getPhone() + "\n\r");
+        textWindow.appendText("You have added number: " + sms.getPhone() + "\n\r");
         Sql();
     }
 
@@ -140,32 +137,32 @@ public class MainController {
 
 
             if (line.equals("Message: Authentication accepted")) {
-                textWindow.appendText("Успешное подключение!!!" + "\n");
+                textWindow.appendText("Connection ok!!!" + "\n");
 
 
                 return;
             }
 
             if (line.equals("Message: Authentication failed")) {
-                textWindow.appendText("Ошибка подключения. \nПроверьте логин и пароль в файле config.properties.login\n");
+                textWindow.appendText("Connection error. \nCheck login and password in fail config.properties.login\n");
                 return;
             }
             if (line.equals("Message: Permission denied")) {
-                textWindow.appendText("Ошибка подключения. \nПроверьте функцию action в файле config.properties.login\n");
+                textWindow.appendText("Connection error. \nCheck action in fail config.properties.login\n");
             }
             if (line.equals("Status: 1")) {
-                textWindow.appendText("Отправлено" + "\n");
+                textWindow.appendText("Sended" + "\n");
             }
             if (line.equals("Status: 0")) {
-                textWindow.appendText("Ошибка отправления, возможно, указан неверный номер\n");
+                textWindow.appendText("Send error, check number\n");
             }
             if (line.equals("Sender: " + sms.getPhone())) {
-                textWindow.appendText("Устройство с номером " + sms.getPhone() + " получило настройки\n\r");
+                textWindow.appendText("Device with number " + sms.getPhone() + " geted properties. OK.\n\r");
 
             }
             if (line.startsWith("Content:")) {
+                Sql();
 
-                textWindow.appendText(line + "\n");
             }
 
         }
@@ -250,7 +247,7 @@ public class MainController {
 
     private void Send() {
         // выбор сообщений
-        String message = "Выбрано: \n";
+        String message = "Selected: \n";
         if (razvchas.isSelected()) {
             message += "Time\n";
 //            textWindow.appendText(message);
@@ -354,7 +351,7 @@ public class MainController {
 
     private void Send2() {
 
-        String message = "Выбрано: \n";
+        String message = "Selected: \n";
 
         if (razvsutki.isSelected()) {
             message += "Time\n";
@@ -422,31 +419,32 @@ public class MainController {
         Statement st = null;
 //        ResultSet rs = null;
 
-        String url = "jdbc:mysql://192.168.1.121/smscenter";
-        String user = "SergejK";
-        String password = "Biologija12";
-
-
-//String phone = sms.getPhone();
 
         String query = "select * from inbox  where sender = " + sms.getPhone();
+        final Properties properties = new Properties();
+        try
 
-        try {
+                (InputStream is = Main.class.getResourceAsStream("mysqlconfig")) {
+            properties.load(is);
+            String url = properties.getProperty("db.url");
+            String user = properties.getProperty("db.user");
+            String password = properties.getProperty("db.password");
+
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                content = rs.getString("content");
-                time = rs.getString("time");
-                textWindow.appendText(time + " --- " + content +  "\r\n");
+                String content = rs.getString("content");
+                String time = rs.getString("time");
+                textWindow.appendText(time + " --> " + content + "\r\n");
             }
 
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(Runtime.Version.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -468,24 +466,7 @@ public class MainController {
 
     }
 
-    public void find(ActionEvent actionEvent) {
-        Sql();
-        window = new Stage();
-        window.setMinWidth(400);
-        window.setMinHeight(200);
-        window.setTitle("Sms");
 
-        TextArea textArea = new TextArea();
-
-
-        Scene scene = new Scene(textArea);
-        window.setScene(scene);
-
-
-        textArea.appendText(content + "\n");
-
-        window.show();
-    }
 }
 
 

@@ -49,7 +49,7 @@
               </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#listView2" text="GM2" />
-            <Button mnemonicParsing="false" onAction="#find" text="Last" />
+
           </HBox>
         </FlowPane>
       </FlowPane>
